@@ -1,6 +1,10 @@
 const fs = require("fs");
 
-function processAndComputeData(filePath) {
+isValidMulInstruction = (instruction) => {
+  return /^mul\(\d+,\d+\)$/.test(instruction);
+};
+
+processAndComputeData = (filePath) => {
   let total = 0;
   const data = fs.readFileSync(filePath, "utf-8");
 
@@ -11,17 +15,18 @@ function processAndComputeData(filePath) {
 
     if (matches) {
       for (const match of matches) {
-        // Extract numbers from `mul(x, y)`
-        const [x, y] = match
-          .match(/\d+/g) // Get all numbers inside `mul`
-          .map(Number); // Convert them to numbers
-        total += x * y;
+        if (isValidMulInstruction(match)) {
+          const [x, y] = match
+            .match(/\d+/g) // Get all numbers inside `mul`
+            .map(Number); // Convert them to numbers
+          total += x * y;
+        }
       }
     }
   }
 
   return total;
-}
+};
 
 const filePath = "./data.txt";
 const result = processAndComputeData(filePath);
