@@ -30,10 +30,28 @@ function isValidSequence(numbers, isIncreasing) {
   return true;
 }
 
+function canBeSafeWithOneRemoval(numbers) {
+  for (let i = 0; i < numbers.length; i++) {
+    // Create a new array with one level removed
+    const modifiedNumbers = [...numbers.slice(0, i), ...numbers.slice(i + 1)];
+
+    // Check if the modified sequence is safe
+    if (
+      isValidSequence(modifiedNumbers, true) ||
+      isValidSequence(modifiedNumbers, false)
+    ) {
+      return true; // Safe after removing one level
+    }
+  }
+  return false; // Cannot be made safe
+}
+
 isSafe = (parsedData) => {
   let safeReports = 0;
   parsedData.forEach((report) => {
     if (isValidSequence(report, true) || isValidSequence(report, false)) {
+      safeReports++;
+    } else if (canBeSafeWithOneRemoval(report)) {
       safeReports++;
     }
   });
