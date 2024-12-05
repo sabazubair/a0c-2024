@@ -18,19 +18,11 @@ function parseTextFile(filePath) {
 const filePath = "./data.txt";
 const parsedData = parseTextFile(filePath);
 
-function isValidIncreasingSequence(numbers) {
+function isValidSequence(numbers, isIncreasing) {
   for (let i = 1; i < numbers.length; i++) {
-    const diff = numbers[i] - numbers[i - 1];
-    if (diff < 1 || diff > 3) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function isValidDecreasingSequence(numbers) {
-  for (let i = 1; i < numbers.length; i++) {
-    const diff = numbers[i - 1] - numbers[i];
+    const diff = isIncreasing
+      ? numbers[i] - numbers[i - 1]
+      : numbers[i - 1] - numbers[i];
     if (diff < 1 || diff > 3) {
       return false;
     }
@@ -41,13 +33,11 @@ function isValidDecreasingSequence(numbers) {
 isSafe = (parsedData) => {
   let safeReports = 0;
   parsedData.forEach((report) => {
-    if (isValidIncreasingSequence(report)) {
-      safeReports++;
-    } else if (isValidDecreasingSequence(report)) {
+    if (isValidSequence(report, true) || isValidSequence(report, false)) {
       safeReports++;
     }
   });
-  // console.log(safeReports);
+  console.log(safeReports);
   return safeReports;
 };
 
