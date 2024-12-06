@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-function parseTextFile(filePath) {
+parseTextFile = (filePath) => {
   // Read the file synchronously
   const fileContent = fs.readFileSync(filePath, "utf-8");
 
@@ -13,12 +13,12 @@ function parseTextFile(filePath) {
   );
 
   return result;
-}
+};
 
 const filePath = "./data.txt";
 const parsedData = parseTextFile(filePath);
 
-function isValidSequence(numbers, isIncreasing) {
+isValidSequence = (numbers, isIncreasing) => {
   for (let i = 1; i < numbers.length; i++) {
     const diff = isIncreasing
       ? numbers[i] - numbers[i - 1]
@@ -28,9 +28,9 @@ function isValidSequence(numbers, isIncreasing) {
     }
   }
   return true;
-}
+};
 
-function canBeSafeWithOneRemoval(numbers) {
+canBeSafeWithOneRemoval = (numbers) => {
   for (let i = 0; i < numbers.length; i++) {
     // Create a new array with one level removed
     const modifiedNumbers = [...numbers.slice(0, i), ...numbers.slice(i + 1)];
@@ -44,7 +44,7 @@ function canBeSafeWithOneRemoval(numbers) {
     }
   }
   return false; // Cannot be made safe
-}
+};
 
 isSafe = (parsedData) => {
   let safeReports = 0;
