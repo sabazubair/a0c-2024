@@ -12,12 +12,10 @@ processAndComputeData = (filePath) => {
     const matches = line.match(/mul\(\d+,\d+\)/g);
     if (matches) {
       for (const match of matches) {
-        if (isValidMulInstruction(match)) {
-          const [x, y] = match
-            .match(/\d+/g) // Get all numbers inside `mul`
-            .map(Number); // Convert them to numbers
-          total += x * y;
-        }
+        const [x, y] = match
+          .match(/\d+/g) // Get all numbers inside `mul`
+          .map(Number); // Convert them to numbers
+        total += x * y;
       }
     }
   }
